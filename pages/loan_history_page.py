@@ -80,7 +80,7 @@ class LoanHistoryPage(BudgetEntry):
         self.cash()
         self.open_date_picker()
         self.set_day_from_date_picker(td.day)
-        self.enter_amount_of_debt('100')
+        self.enter_amount_of_debt(total_sum)
         assert self.get_total_amount_of_debt_due() == total_sum
         self.click_ok()
 
@@ -91,13 +91,13 @@ class LoanHistoryPage(BudgetEntry):
         return self.get_text(loc_ll.status_sub)
 
     def enter_amount_of_debt(self, amount):
-        self.find_all(loc.amount)[0].text(amount)
+        self.find_all(loc.amount)[0].send_keys(amount)
 
     def get_total_amount_of_debt_due(self):
         return self.find_all(loc.amount)[0].get_property("value")
 
     def selected_transaction(self, name):
-        self.get_transaction_by_name(name)
+        self.get_last_added_transaction_by_name(name)
 
     def get_date(self):
         date = (By.CSS_SELECTOR, '.TransactionsTable_root__ehmR3 tr:nth-child(' + self.result + ') time')
@@ -109,6 +109,7 @@ class LoanHistoryPage(BudgetEntry):
 
     def get_transfer_amount(self):
         sums = (By.CSS_SELECTOR, '.TransactionsTable_root__ehmR3 tr:nth-child(' + self.result + ') .list-value')
+        print(self.find_all(sums)[0].text)
         return self.extract_digits_from_str(self.find_all(sums)[0].text)
 
     def get_balance(self):
@@ -119,11 +120,11 @@ class LoanHistoryPage(BudgetEntry):
         self.click(loc_ll.save_btn)
 
     def delete_only_loan(self):
-        self.click_from_list(loc_ll.delete_btns, 1)
+        self.click_from_list(loc_ll.delete_btns, 0)
         WebDriverWait(self.driver, 20).until(EC.invisibility_of_element_located(loc_ll.delete_btns))
 
     def delete_transaction(self):
-        self.click_from_list(loc_ll.delete_btns, 2)
+        self.click_from_list(loc_ll.delete_btns, 1)
         WebDriverWait(self.driver, 20).until(EC.invisibility_of_element_located(loc_ll.delete_btns))
 
     def delete_partner_with_transactions(self):

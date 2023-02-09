@@ -60,13 +60,29 @@ class BudgetEntry(BasePage):
             if categories[category].text == selected_cat:
                 return self.extract_digits_from_str(amounts[category].text)
 
-    def get_transaction_by_name(self, name):
+    def get_last_added_transaction_by_name(self, name):
         self.scroll_to_the_bottom()
         list_transactions = self.find_all(loc.transactions)
-        for transaction in range(len(list_transactions)):
-            WebDriverWait(self.driver, 20).until(EC.visibility_of(list_transactions[transaction]))
-            if list_transactions[transaction].text.__contains__(name):
-                self.result = str(transaction + 1)
+        transactions_by_name = []
+        for tr in range(len(list_transactions)):
+            WebDriverWait(self.driver, 20).until(EC.visibility_of(list_transactions[tr]))
+            transactions_by_name = self.get_transactions_by_name(list_transactions, name)
+            break
+        if len(transactions_by_name) == 1:
+            self.result = str(tr + 1)
+        else:
+            self.result = str(len(transactions_by_name))
+
+    @staticmethod
+    def get_transactions_by_name(all_transactions_list, name):
+        list_by_name = []
+        try:
+            for tr in range(len(all_transactions_list)):
+                if all_transactions_list[tr].text.__contains__(name):
+                    list_by_name.append(all_transactions_list[tr])
+            return list_by_name
+        except ValueError:
+            print(f'Transaction {name} does not exist')
 
     def get_category_name(self):
         category = (By.CSS_SELECTOR, '.TransactionsTable_root__ehmR3 tr:nth-child(' + self.result + ') .list')

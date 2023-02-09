@@ -107,7 +107,6 @@ class BasePage:
     def refresh(self):
         self.driver.refresh()
 
-
     @staticmethod
     def extract_digits_from_str(value):
         return int(re.findall(r'\d+', value)[0])

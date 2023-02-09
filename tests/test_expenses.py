@@ -14,7 +14,7 @@ class TestExpenses:
     @allure.description('Verify that first name field is required')
     def test_check_expenses(self, driver, logged_in, expenses, add_expense, home_page):
         home_page.menu_expenses()
-        expenses.get_transaction_by_name(td.auto)
+        expenses.get_last_added_transaction_by_name(td.auto)
         assert expenses.get_category_name() == td.auto
         assert expenses.get_amount() == int(td.sum)
         delete_operation(home_page, expenses)
@@ -23,7 +23,7 @@ class TestExpenses:
     @allure.description('Verify that first name field is required')
     def test_edit(self, driver, logged_in, add_expense, home_page, expenses):
         home_page.menu_expenses()
-        expenses.get_transaction_by_name(td.auto)
+        expenses.get_last_added_transaction_by_name(td.auto)
         assert expenses.get_category_name() == td.auto
         assert expenses.get_amount() == int(td.sum)
 
@@ -40,7 +40,7 @@ class TestExpenses:
     def test_copy(self, driver, logged_in, add_expense, home_page, expenses):
 
         home_page.menu_expenses()
-        expenses.get_transaction_by_name(td.auto)
+        expenses.get_last_added_transaction_by_name(td.auto)
         assert expenses.get_category_name() == td.auto
         assert expenses.get_amount() == int(td.sum)
 

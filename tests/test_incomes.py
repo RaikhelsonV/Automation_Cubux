@@ -15,7 +15,7 @@ class TestIncomes:
     def test_check_incomes(self, driver, logged_in, incomes, add_income, home_page):
 
         home_page.menu_incomes()
-        incomes.get_transaction_by_name(td.salary)
+        incomes.get_last_added_transaction_by_name(td.salary)
         assert incomes.get_category_name() == td.salary
         assert incomes.get_amount() == int(td.sum)
         delete_operation(home_page, incomes)
@@ -25,7 +25,7 @@ class TestIncomes:
     def test_edit(self, driver, logged_in, incomes, add_income, home_page):
 
         home_page.menu_incomes()
-        incomes.get_transaction_by_name(td.salary)
+        incomes.get_last_added_transaction_by_name(td.salary)
         assert incomes.get_category_name() == td.salary
         assert incomes.get_amount() == int(td.sum)
 
@@ -41,7 +41,7 @@ class TestIncomes:
     @allure.description('Verify that first name field is required')
     def test_copy(self, driver, logged_in, incomes, add_income, home_page):
         home_page.menu_incomes()
-        incomes.get_transaction_by_name(td.salary)
+        incomes.get_last_added_transaction_by_name(td.salary)
         assert incomes.get_category_name() == td.salary
         assert incomes.get_amount() == int(td.sum)
 

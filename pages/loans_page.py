@@ -53,4 +53,13 @@ class LoansPage(BudgetEntry):
 
     def open_loan_page(self):
         self.click(loc_l.loan_page)
-        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(loc.transactions_form))
+        time.sleep(10)
+
+    def is_finish_debt(self):
+        return self.is_displayed(loc_l.loan_page)
+
+    def get_name_finish_debt(self):
+        return self.get_text(loc_l.partner_name)
+
+
+

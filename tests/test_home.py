@@ -8,7 +8,7 @@ class TestHome:
     @allure.description('Verify that first name field is required')
     def test_incomes(self, driver, logged_in, incomes, add_income, home_page):
         home_page.logo()
-        assert home_page.get_transaction_by_name() == 100
+        assert home_page.get_last_added_transaction_by_name() == 100
 
     @allure.story('Expenses')
     @allure.description('Verify that first name field is required')
@@ -19,4 +19,4 @@ class TestHome:
     @allure.story('Balance')
     @allure.description('Verify that first name field is required')
     def test_balance(self, driver, logged_in, home_page):
-        assert home_page.get_balance() == home_page.get_transaction_by_name() - home_page.get_expenses()
+        assert home_page.get_balance() == home_page.get_last_added_transaction_by_name() - home_page.get_expenses()
