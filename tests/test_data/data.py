@@ -1,0 +1,16 @@
+cubux = 'https://www.cubux.net/'
+email = 'valerie.test.dan@gmail.com'
+password = 'Serhii33'
+first_name = 'Val'
+last_name = 'Test'
+country = 'Израиль'
+day = '15'
+date = '15.02.2023'
+sum = '100'
+salary = 'Зарплата'
+auto = 'Авто'
+name = 'Valerie Raikhelson'
+borrow = "Я получил"
+reimburse = "Я отдал"
+partner_name = 'Max'
+account = 'Leumi Card'
