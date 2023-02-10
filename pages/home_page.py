@@ -1,9 +1,8 @@
 import time
-
+import allure
 from pages.base_page import BasePage
 from pages.locators import home as loc
 from tests.test_data import data as td
-import allure
 
 
 class HomePage(BasePage):
@@ -31,14 +30,12 @@ class HomePage(BasePage):
     def menu_loans(self):
         self.click(loc.loans_menu)
 
-
     @allure.step('Get name')
     def get_name(self):
         return self.get_text(loc.name)
 
     @allure.step('Get incomes')
     def get_incomes(self):
-        print(self.get_text(loc.incomes))
         return self.extract_currency_from_str(self.get_text(loc.incomes))
 
     @allure.step('Get expenses')

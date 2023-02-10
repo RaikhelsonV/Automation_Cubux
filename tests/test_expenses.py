@@ -5,23 +5,27 @@ import allure
 @allure.feature('Expenses Page')
 class TestExpenses:
 
-    @allure.story('Validation errors')
-    @allure.description('Verify that first name field is required')
-    def test_create_op(self, driver, logged_in, expenses, add_expense, home_page):
+    @allure.story('Add expense')
+    @allure.description('Make sure that the method add expense works correctly.')
+    def test_add_expense(self, driver, logged_in, expenses, add_expense, home_page):
+        assert expenses.get_total_amount() == int(td.sum)
+        assert expenses.get_amount_by_category(td.auto) == int(td.sum)
         delete_operation(home_page, expenses)
 
-    @allure.story('Validation errors')
-    @allure.description('Verify that first name field is required')
+    @allure.story('Add expense')
+    @allure.description('Ensure that the expense information is displayed correctly')
     def test_check_expenses(self, driver, logged_in, expenses, add_expense, home_page):
+        assert expenses.get_total_amount() == int(td.sum)
+        assert expenses.get_amount_by_category(td.auto) == int(td.sum)
         home_page.menu_expenses()
         expenses.get_last_added_transaction_by_name(td.auto)
         assert expenses.get_category_name() == td.auto
         assert expenses.get_amount() == int(td.sum)
         delete_operation(home_page, expenses)
 
-    @allure.story('Validation errors')
-    @allure.description('Verify that first name field is required')
-    def test_edit(self, driver, logged_in, add_expense, home_page, expenses):
+    @allure.story('Edit expense')
+    @allure.description('Make sure the method to edit expense works correctly.')
+    def test_edit_expense(self, driver, logged_in, add_expense, home_page, expenses):
         home_page.menu_expenses()
         expenses.get_last_added_transaction_by_name(td.auto)
         assert expenses.get_category_name() == td.auto
@@ -35,10 +39,9 @@ class TestExpenses:
         assert expenses.get_amount_by_category(td.auto) == 200
         delete_operation(home_page, expenses)
 
-    @allure.story('Validation errors')
-    @allure.description('Verify that first name field is required')
+    @allure.story('Copy expense')
+    @allure.description('Make sure the method to copy expense works correctly.')
     def test_copy(self, driver, logged_in, add_expense, home_page, expenses):
-
         home_page.menu_expenses()
         expenses.get_last_added_transaction_by_name(td.auto)
         assert expenses.get_category_name() == td.auto
@@ -50,15 +53,17 @@ class TestExpenses:
         assert expenses.get_amount_by_category(td.auto) == 200
         delete_operation(home_page, expenses)
 
-    @allure.description('Verify that first name field is required')
-    def test_delete_op(self, driver, logged_in, add_expense, home_page, expenses):
+    @allure.story('Delete expense')
+    @allure.description('Make sure the method to delete expense works correctly.')
+    def test_delete_expense(self, driver, logged_in, add_expense, home_page, expenses):
         delete_operation(home_page, expenses)
+        assert expenses.get_total_amount() == 0
         assert expenses.get_amount() == 0
         assert expenses.get_amount_by_category(td.auto) == 0
 
 
-def delete_operation(home_page, incomes):
+def delete_operation(home_page, expenses):
     home_page.menu_expenses()
-    incomes.delete()
-    incomes.click_confirm_delete()
-    assert incomes.get_total_amount() == 0
+    expenses.delete()
+    expenses.click_confirm_delete()
+

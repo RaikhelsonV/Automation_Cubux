@@ -1,4 +1,3 @@
-import time
 from pages.expenses_page import ExpensesPage
 from pages.loan_history_page import LoanHistoryPage
 from tests.test_data import data as td
@@ -80,7 +79,11 @@ def logged_in(driver, home_page, login):
 
 
 @pytest.fixture(scope='function')
-def add_income(driver, incomes):
+def add_income(driver, incomes, home_page):
+    while incomes.get_total_amount() != 0:
+        incomes.delete()
+        incomes.click_confirm_delete()
+        home_page.menu_incomes()
     incomes.click_create_operation()
     incomes.select_account()
     incomes.cash()
@@ -90,12 +93,15 @@ def add_income(driver, incomes):
     incomes.set_day_from_date_picker(td.day)
     incomes.enter_amount(td.sum)
     incomes.click_ok()
-    assert incomes.get_total_amount() == int(td.sum)
-    assert incomes.get_amount_by_category(td.salary) == int(td.sum)
 
 
 @pytest.fixture(scope='function')
-def add_expense(driver, expenses):
+def add_expense(driver, expenses, home_page):
+    while expenses.get_total_amount() != 0:
+        expenses.delete()
+        expenses.click_confirm_delete()
+        home_page.menu_expenses()
+
     expenses.click_create_operation()
     expenses.select_account()
     expenses.cash()
@@ -105,12 +111,12 @@ def add_expense(driver, expenses):
     expenses.set_day_from_date_picker(td.day)
     expenses.enter_amount(td.sum)
     expenses.click_ok()
-    assert expenses.get_total_amount() == int(td.sum)
-    assert expenses.get_amount_by_category(td.auto) == int(td.sum)
 
 
 @pytest.fixture(scope='function')
 def add_debt(driver, loans):
+    while loans.get_total_debt(0) != 0:
+        loan_history.delete_partner_and_transactions()
     loans.select_operation(0, 0)
     loans.select_partner()
     loans.create_partner()
@@ -120,6 +126,3 @@ def add_debt(driver, loans):
     loans.set_day_from_date_picker(td.day)
     loans.enter_amount(td.sum)
     loans.click_ok()
-
-
-

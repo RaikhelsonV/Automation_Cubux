@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 
+logo = (By.CSS_SELECTOR, "[alt='CUBUX Logo']")
 title = (By.CSS_SELECTOR, '.no-margin .title')
 operations_list = (By.CSS_SELECTOR, '.value-block')
 execute_operation_btn = (By.CSS_SELECTOR, '.value-block button')

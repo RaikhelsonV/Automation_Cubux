@@ -8,12 +8,15 @@ class TestIncomes:
     @allure.story('Validation errors')
     @allure.description('Verify that first name field is required')
     def test_create_op(self, driver, logged_in, incomes, add_income, home_page):
+        assert incomes.get_total_amount() == int(td.sum)
+        assert incomes.get_amount_by_category(td.salary) == int(td.sum)
         delete_operation(home_page, incomes)
 
     @allure.story('Validation errors')
     @allure.description('Verify that first name field is required')
     def test_check_incomes(self, driver, logged_in, incomes, add_income, home_page):
-
+        assert incomes.get_total_amount() == int(td.sum)
+        assert incomes.get_amount_by_category(td.salary) == int(td.sum)
         home_page.menu_incomes()
         incomes.get_last_added_transaction_by_name(td.salary)
         assert incomes.get_category_name() == td.salary

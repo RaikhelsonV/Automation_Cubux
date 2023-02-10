@@ -106,6 +106,7 @@ class BasePage:
 
     def refresh(self):
         self.driver.refresh()
+        time.sleep(10)
 
     @staticmethod
     def extract_digits_from_str(value):

@@ -1,7 +1,6 @@
-from time import sleep
+import allure
 from pages.base_page import BasePage
 from pages.locators import login as loc
-import allure
 
 
 class RegisterForm(BasePage):
@@ -28,11 +27,6 @@ class RegisterForm(BasePage):
         self.set_text(loc.search_field, country)
         self.press_down_arrow(loc.search_field)
 
-    @allure.step('Recaptcha')
-    def recaptcha(self):
-        self.click(loc.recaptcha)
-
     @allure.step('SignUp')
     def click_signup_btn(self):
         self.click(loc.sign_up)
-        sleep(4000)
