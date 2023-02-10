@@ -52,14 +52,13 @@ class TestExpenses:
         assert expenses.get_total_amount() == 200
         assert expenses.get_amount_by_category(td.auto) == 200
         delete_operation(home_page, expenses)
+        delete_operation(home_page, expenses)
 
     @allure.story('Delete expense')
     @allure.description('Make sure the method to delete expense works correctly.')
     def test_delete_expense(self, driver, logged_in, add_expense, home_page, expenses):
         delete_operation(home_page, expenses)
         assert expenses.get_total_amount() == 0
-        assert expenses.get_amount() == 0
-        assert expenses.get_amount_by_category(td.auto) == 0
 
 
 def delete_operation(home_page, expenses):

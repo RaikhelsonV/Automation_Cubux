@@ -63,8 +63,11 @@ class LoansPage(BudgetEntry):
 
     @allure.step('Open loan history page')
     def open_loan_page(self):
-        self.click(loc_l.loan_page)
-        time.sleep(10)
+        if len(self.find_all(loc_l.loan_page)) == 1:
+            self.click(loc_l.loan_page)
+        else:
+            self.click_from_list(loc_l.loan_page, 1)
+        WebDriverWait(self.driver, 30).until(EC.visibility_of_element_located(loc.transactions_form))
 
     @allure.step('Check if the completed debt is in the finished section')
     def is_finish_debt(self):

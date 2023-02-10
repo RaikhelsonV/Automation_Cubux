@@ -10,9 +10,9 @@ class TestLoans:
     @allure.story('Go into debt')
     @allure.description('Make sure that the method of going into debt works correctly.')
     def test_go_into_debt(self, driver, logged_in, loans, add_debt, loan_history):
-        assert loans.get_partner_name() == td.partner_name
-        assert loans.get_account_amount() == int(td.sum)
-        assert loans.get_total_debt(0) == int(td.sum)
+        assert loan_history.get_partner_name() == td.partner_name
+        assert loan_history.get_total_account_debt() == int(td.sum)
+        assert loan_history.get_total_amount_loan_status_form() == int(td.sum)
         delete_partner_with_transactions(loan_history)
 
     @allure.story('Go into debt')

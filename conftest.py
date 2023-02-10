@@ -116,8 +116,6 @@ def add_expense(driver, expenses, home_page):
 
 @pytest.fixture(scope='function')
 def add_debt(driver, loans):
-    while loans.get_total_debt(0) != 0:
-        loan_history.delete_partner_and_transactions()
     loans.select_operation(0, 0)
     loans.select_partner()
     loans.create_partner()

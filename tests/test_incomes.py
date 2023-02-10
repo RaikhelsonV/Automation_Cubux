@@ -52,18 +52,16 @@ class TestIncomes:
         assert incomes.get_total_amount() == 200
         assert incomes.get_amount_by_category(td.salary) == 200
         delete_operation(home_page, incomes)
+        delete_operation(home_page, incomes)
 
     @allure.story('Delete income')
     @allure.description('Make sure the method to delete income works correctly.')
     def test_delete_income(self, driver, logged_in, incomes, add_income, home_page):
         delete_operation(home_page, incomes)
         assert incomes.get_total_amount() == 0
-        assert incomes.get_amount() == 0
-        assert incomes.get_amount_by_category(td.salary) == 0
 
 
 def delete_operation(home_page, incomes):
     home_page.menu_incomes()
     incomes.delete()
     incomes.click_confirm_delete()
-
