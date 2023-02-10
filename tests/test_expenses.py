@@ -1,5 +1,5 @@
-from tests.test_data import data as td
 import allure
+from tests.test_data import data as td
 
 
 @allure.feature('Expenses Page')
@@ -66,4 +66,3 @@ def delete_operation(home_page, expenses):
     home_page.menu_expenses()
     expenses.delete()
     expenses.click_confirm_delete()
-

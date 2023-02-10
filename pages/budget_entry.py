@@ -56,7 +56,9 @@ class BudgetEntry(BasePage):
 
     @allure.step('Get the total amount')
     def get_total_amount(self):
+        WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located(loc.transactions_form))
         return self.extract_digits_from_str(self.get_text(loc.total_amount))
+
     @allure.step('Get the total amount by category in categories form')
     def get_amount_by_category(self, selected_cat):
         categories = self.find_all(loc.categories)
@@ -75,10 +77,13 @@ class BudgetEntry(BasePage):
             WebDriverWait(self.driver, 20).until(EC.visibility_of(list_transactions[tr]))
             transactions_by_name = self.get_transactions_by_name(list_transactions, name)
             break
-        if len(transactions_by_name) == 1:
-            self.result = str(2)
+        if len(list_transactions) == 2:
+            if len(transactions_by_name) == 1:
+                self.result = str(2)
+            else:
+                self.result = str(len(transactions_by_name))
         else:
-            self.result = str(len(transactions_by_name))
+            self.result = str(1)
 
     @staticmethod
     def get_transactions_by_name(all_transactions_list, name):
@@ -95,6 +100,7 @@ class BudgetEntry(BasePage):
     def get_category_name(self):
         category = (By.CSS_SELECTOR, '.TransactionsTable_root__ehmR3 tr:nth-child(' + self.result + ') .list')
         return self.get_text(category)
+
     @allure.step('Get amount in transaction table')
     def get_amount(self):
         amount = (By.CSS_SELECTOR, '.TransactionsTable_root__ehmR3 tr:nth-child(' + self.result + ') .list-value')
@@ -115,3 +121,7 @@ class BudgetEntry(BasePage):
     def click_confirm_delete(self):
         self.click_from_list(loc.confirm_dialog, 0)
         WebDriverWait(self.driver, 20).until(EC.invisibility_of_element_located(loc.confirm_dialog))
+
+    @allure.step('Verify message that there are no transactions is displayed.')
+    def get_no_transactions_msg(self):
+        return self.get_text(loc.no_transactions_msg)

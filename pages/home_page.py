@@ -1,11 +1,11 @@
 import time
 import allure
-from pages.base_page import BasePage
+from pages.budget_entry import BudgetEntry
 from pages.locators import home as loc
 from tests.test_data import data as td
 
 
-class HomePage(BasePage):
+class HomePage(BudgetEntry):
     def __init__(self, driver):
         super().__init__(driver)
         self.page_url = td.cubux

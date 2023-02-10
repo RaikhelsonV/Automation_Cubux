@@ -84,6 +84,7 @@ def add_income(driver, incomes, home_page):
         incomes.delete()
         incomes.click_confirm_delete()
         home_page.menu_incomes()
+
     incomes.click_create_operation()
     incomes.select_account()
     incomes.cash()

@@ -13,6 +13,7 @@ class IncomesPage(BudgetEntry):
     def select_category(self):
         self.click_from_list(loc.options, 1)
 
+    @allure.step('Click on "account"')
     def select_account(self):
         self.click_from_list(loc.options, 0)
 

@@ -51,6 +51,7 @@ class BasePage:
         element.send_keys(Keys.DELETE)
         element.send_keys(text)
 
+
     def get_text(self, locator):
         WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located(locator))
         element = self.driver.find_element(*locator)
@@ -103,6 +104,11 @@ class BasePage:
         element = self.driver.find_element(*locator)
         element.send_keys(Keys.DOWN)
         element.send_keys(Keys.ENTER)
+
+    def tab(self, locator):
+        WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(locator))
+        element = self.driver.find_element(*locator)
+        element.send_keys(Keys.TAB)
 
     def refresh(self):
         self.driver.refresh()
